@@ -8,10 +8,10 @@
 
 <h1>Feature</h1>
 <h2>Aggiungi nuova caratteristica</h2>
-<form asp-controller="FeatureGenre" asp-action="CreateFeature" method="post">
+<form asp-controller="FeatureGenre" asp-action="CreateFeature" method="post" class="mb-3">
     @Html.AntiForgeryToken()
-    <input asp-for="FeatureToEdit.Name" class="form-control" type="text" placeholder="Default input" aria-label="default input example">
-    <button type="submit">Salva</button>
+    <input asp-for="FeatureToEdit.Name" class="form-control mb-2" type="text" placeholder="Default input" aria-label="default input example">
+    <button class="btn btn-primary" type="submit">Salva</button>
 
 </form>
 <h2>Lista</h2>
@@ -63,10 +63,10 @@ else
 
 <h1>Generi</h1>
 <h2>Aggiungi nuovo genere</h2>
-<form asp-controller="FeatureGenre" asp-action="CreateGenre" method="post">
+<form asp-controller="FeatureGenre" asp-action="CreateGenre" method="post" class="mb-3">
     @Html.AntiForgeryToken()
-    <input asp-for="GenreToEdit.Name" class="form-control" type="text" placeholder="Default input" aria-label="default input example">
-    <button type="submit">Salva</button>
+    <input asp-for="GenreToEdit.Name" class="form-control" type="text" placeholder="Default input" aria-label="default input example" class="mb-2">
+    <button class="btn btn-primary" type="submit">Salva</button>
 
 </form>
 <h2>Lista</h2>
@@ -85,7 +85,7 @@ else
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Azioni</th>
-                <th scope="col" ></th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>

@@ -1,0 +1,143 @@
+﻿@{
+    Layout = "_EditorLayout";
+}
+
+@model FilmEditModel;
+
+<h1>Films:</h1>
+@if (Model.Films.Count() == 0)
+{
+    <div class="alert alert-warning" role="alert">
+        Non ci sono Film
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Titolo</th>
+                <th scope="col">Descrizione</th>
+                <th scope="col">Durata</th>
+                <th scope="col">Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Film film in Model.Films)
+            {
+                <tr>
+                    <th scope="row">@film.Id</th>
+
+                    <form asp-controller="Film" asp-action="Update" asp-route-id="@film.Id" method="post">
+                        @Html.AntiForgeryToken()
+                    <td>
+                        <input asp-for="FilmToEdit.Title" value="@film.Title">
+                        <span asp-validation-for="FilmToEdit.Title" class="text-danger"></span>
+                    </td>
+                    <td>  
+                        <input asp-for="FilmToEdit.Description" value="@film.Description">
+                        <span asp-validation-for="FilmToEdit.Description" class="text-danger"></span>
+                    </td>
+                    <td>  
+                        <input type="number" asp-for="FilmToEdit.Duration" value="@film.Duration">
+                        <span asp-validation-for="FilmToEdit.Duration" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-warning btn-sm d-block w-100">Modifica</button>
+                    </td>
+
+                    </form>
+                    <form asp-controller="Film" asp-action="Delete" asp-route-id="@film.Id" method="post">
+                        @Html.AntiForgeryToken()
+                    <td>
+                        <button type="submit" class="btn btn-danger btn-sm d-block w-100">Elimina</button>
+                    </td>
+
+                    </form>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+@*TODO: Update details films (Genres,Actors...)*@
+<p>
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Aggiungi un nuovo film
+    </button>
+</p>
+<div class="collapse" id="collapseExample">
+    <div class="card card-body">
+        <h2>Aggiungi nuovo film</h2>
+        <form asp-controller="Film" asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <label for="Film.Title" class="form-label">Titolo:</label>
+            <input asp-for="FilmToEdit.Title" class="form-control mb-2" type="text" placeholder="Ritorno al Futuro" aria-label="default input example">
+            <label for="Film.LastName" class="form-label">Descrizione:</label>
+            <input asp-for="FilmToEdit.Description" class="form-control mb-2" type="text" placeholder="Un Bel Film" aria-label="default input example
+            <label for="Film.LastName" class="form-label">Durata:</label>
+            <input asp-for="FilmToEdit.Duration" class="form-control mb-2" type="int" placeholder="120" aria-label="default input example">
+
+            <div class="mb-3">
+                <strong>Genere:</strong>
+                <select asp-for="GenresToEdit" class="form-select" aria-label="Default select example">
+                    @foreach (Genre genre in Model.Genres)
+                    {
+                        @if (Model.GenresToEdit != null && Model.GenresToEdit.Contains(genre.Id))
+                        {
+                            <option selected value="@genre.Id">@genre.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@genre.Id">@genre.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="GenresToEdit" class="text-danger"></span>
+
+            </div>
+            <div class="mb-3">
+                <strong>Attori:</strong>
+                <select asp-for="ActorsToEdit" class="form-select" aria-label="Default select example">
+                    @foreach (Actor actor in Model.Actors)
+                    {
+                        @if (Model.GenresToEdit != null && Model.GenresToEdit.Contains(actor.Id))
+                        {
+                            <option selected value="@actor.Id">@(actor.FirstName + " " + actor.LastName)</option>
+                        }
+                        else
+                        {
+                            <option value="@actor.Id">@(actor.FirstName + " " + actor.LastName)</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="ActorsToEdit" class="text-danger"></span>
+
+            </div>
+            <div class="mb-3">
+                <strong>Caratteristiche:</strong>
+                <select asp-for="FeaturesToEdit" class="form-select" aria-label="Default select example">
+                    @foreach (Feature feature in Model.Features)
+                    {
+                        @if (Model.FeaturesToEdit != null && Model.FeaturesToEdit.Contains(feature.Id))
+                        {
+                            <option selected value="@feature.Id">@feature.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@feature.Id">@feature.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="FeaturesToEdit" class="text-danger"></span>
+
+            </div>
+            <button class="btn btn-primary" type="submit">Salva</button>
+        </form>
+    </div>
+</div>
+

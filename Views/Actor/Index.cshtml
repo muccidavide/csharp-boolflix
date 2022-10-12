@@ -1,0 +1,65 @@
+﻿@{
+}
+@{
+    Layout = "_EditorLayout";
+}
+
+@model ActorEditModel;
+
+<h1>Attori:</h1>
+<h2>Aggiungi nuovo attore</h2>
+<form asp-controller="Actor" asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <label for="Actor.FirstName" class="form-label">Nome:</label>
+    <input asp-for="Actor.FirstName" class="form-control mb-2" type="text" placeholder="Brad" aria-label="default input example">
+    <label for="Actor.LastName" class="form-label">Cognome:</label>
+    <input asp-for="Actor.LastName" class="form-control mb-2" type="text" placeholder="Pitt" aria-label="default input example">
+    <button class="btn btn-primary" type="submit">Salva</button>
+</form>
+
+@if (Model.Actors.Count() == 0)
+{
+    <div class="alert alert-warning" role="alert">
+        Non ci sono attori
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Cognome</th>
+                <th scope="col">Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Actor actor in Model.Actors)
+            {
+                <tr>
+                    <th scope="row">@actor.Id</th>
+
+                    <form asp-controller="Actor" asp-action="Update" asp-route-id="@actor.Id" method="post">
+                        @Html.AntiForgeryToken()
+                    <td>  <input asp-for="Actor.FirstName" value="@actor.FirstName"></td>
+                    <td>  <input asp-for="Actor.LastName" value="@actor.LastName"></td>
+                    <td>
+                        <button type="submit" class="btn btn-warning btn-sm d-block w-100">Modifica</button>
+                    </td>
+                    </form>
+                    <form asp-controller="Actor" asp-action="Delete" asp-route-id="@actor.Id" method="post">
+                        @Html.AntiForgeryToken()
+                    <td>
+                        <button type="submit" class="btn btn-danger btn-sm d-block w-100">Elimina</button>
+                    </td>
+
+                    </form>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

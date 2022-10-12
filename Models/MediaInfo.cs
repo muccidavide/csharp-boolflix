@@ -1,8 +1,8 @@
 ﻿public class MediaInfo
 {
     public int Id { get; set; }
-    public string Year { get; set; }
-    public bool IsNew { get; set; }
+    public string? Year { get; set; }
+    public bool? IsNew { get; set; }
 
     public List<Actor> Cast { get; set; }
     public List<Genre> Genres { get; set; }

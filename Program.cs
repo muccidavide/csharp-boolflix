@@ -22,6 +22,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=FeatureGenre}/{action=Index}/{id?}");
+    pattern: "{controller=Film}/{action=Index}/{id?}");
 
 app.Run();
