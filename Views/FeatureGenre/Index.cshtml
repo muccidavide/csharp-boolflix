@@ -1,0 +1,118 @@
+﻿@{
+}
+@{
+    Layout = "_EditorLayout";
+}
+
+@model GenresFeaturesEditModel;
+
+<h1>Feature</h1>
+<h2>Aggiungi nuova caratteristica</h2>
+<form asp-controller="FeatureGenre" asp-action="CreateFeature" method="post">
+    @Html.AntiForgeryToken()
+    <input asp-for="FeatureToEdit.Name" class="form-control" type="text" placeholder="Default input" aria-label="default input example">
+    <button type="submit">Salva</button>
+
+</form>
+<h2>Lista</h2>
+
+@if (Model.Features.Count() == 0)
+{
+    <div class="alert alert-warning" role="alert">
+        Non ci sono caratteristiche
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Feature feature in Model.Features)
+            {
+                <tr>
+                    <th scope="row">@feature.Id</th>
+
+                    <form asp-controller="FeatureGenre" asp-action="UpdateFeature" asp-route-id="@feature.Id" method="post">
+                        @Html.AntiForgeryToken()
+                    <td>  <input asp-for="FeatureToEdit.Name" value="@feature.Name"></td>
+                    <td>
+                        <button type="submit" class="btn btn-warning btn-sm d-block w-100">Modifica</button>
+                    </td>
+                    </form>
+                    <form asp-controller="FeatureGenre" asp-action="DeleteFeature" asp-route-id="@feature.Id" method="post">
+                        @Html.AntiForgeryToken()
+                    <td>
+                        <button type="submit" class="btn btn-danger btn-sm d-block w-100">Elimina</button>
+                    </td>
+
+                    </form>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+<h1>Generi</h1>
+<h2>Aggiungi nuovo genere</h2>
+<form asp-controller="FeatureGenre" asp-action="CreateGenre" method="post">
+    @Html.AntiForgeryToken()
+    <input asp-for="GenreToEdit.Name" class="form-control" type="text" placeholder="Default input" aria-label="default input example">
+    <button type="submit">Salva</button>
+
+</form>
+<h2>Lista</h2>
+
+@if (Model.Genres.Count() == 0)
+{
+    <div class="alert alert-warning" role="alert">
+        Non ci sono generi
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Azioni</th>
+                <th scope="col" ></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Genre genre in Model.Genres)
+            {
+                <tr>
+                    <th scope="row">@genre.Id</th>
+
+                    <form asp-controller="FeatureGenre" asp-action="UpdateGenre" asp-route-id="@genre.Id" method="post">
+                        @Html.AntiForgeryToken()
+                    <td>  <input asp-for="GenreToEdit.Name" value="@genre.Name"></td>
+                    <td>
+                        <button type="submit" class="btn btn-warning btn-sm d-block w-100">Modifica</button>
+                    </td>
+                    </form>
+                    <form asp-controller="FeatureGenre" asp-action="DeleteGenre" asp-route-id="@genre.Id" method="post">
+                        @Html.AntiForgeryToken()
+                    <td>
+                        <button type="submit" class="btn btn-danger btn-sm d-block w-100">Elimina</button>
+                    </td>
+
+                    </form>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
